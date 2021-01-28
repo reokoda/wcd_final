@@ -53,5 +53,7 @@
 
         ?>
 
+
+        <p><a href="index.php">一覧へ</a><p>
     </body>
 </html>

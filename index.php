@@ -5,6 +5,8 @@
         <title>質問・コメント機能</title>
     </head>
     <body>
+        <h1>質問・コメント機能</h1>
+
         <?php
 
         //接続用パラメータの設定
@@ -43,5 +45,8 @@
         $mysqli->close();
 
         ?>
+
+
+        <p><a href="new.html">新規投稿</a><p>
     </body>
 </html>
