@@ -30,7 +30,7 @@
             $password1 = $_POST["password1"];
             $password2 = $_POST["password2"];
 
-            $sql = "select * from users where userName = $userName";
+            $sql = "select * from users where userName = '$userName'";
             $result = $mysqli->query($sql);
             if($result->num_rows != 0){
                 echo "ユーザ名「${userName}」は既に登録されているため使用できません<br>";
