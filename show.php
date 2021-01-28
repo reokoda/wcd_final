@@ -41,7 +41,7 @@
                 echo "データの登録に失敗しました";
                 echo "SQL文: $sql";
                 echo "エラー番号: $mysqli->errno";
-                echo "エラ〜メッセージ: $mysqli->error";
+                echo "エラーメッセージ: $mysqli->error";
                 exit();
             }
 
