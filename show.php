@@ -25,14 +25,14 @@
             $mysqli->set_charset("utf8");
         }
 
-        if(!empty($_POST["comment"])){
-            $comment = $_POST["comment"];
+        if(!empty($_POST["mainText"])){
+            $comment = $_POST["mainText"];
             echo "入力した質問・コメント";
             echo "<br>";
-            echo "${comment}";
+            echo "${mainText}";
             echo "<hr>";
 
-            $sql = "insert into comment (mainText) values ('$comment')";
+            $sql = "insert into comment (mainText) values ('$mainText')";
             $result = $mysqli -> query($sql);
             if($result){
                 echo "データの登録に成功しました";
