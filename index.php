@@ -25,8 +25,25 @@
             $mysqli->set_charset("utf8");
         }
 
-        $sql = "select mainText, postedTime from comment order by postedTime";
+        if(!empty($_POST["mainText"])){
+            $mainText = $_POST["mainText"];
+            $sql = "insert into comment (mainText) values ('$mainText')";
+            $result = $mysqli -> query($sql);
+            if($result){
+                echo "データの登録に成功しました";
+                echo "<br>";
+            }
+            else{
+                echo "データの登録に失敗しました";
+                echo "SQL文: $sql";
+                echo "エラー番号: $mysqli->errno";
+                echo "エラーメッセージ: $mysqli->error";
+                exit();
+            }
+        }
 
+
+        $sql = "select mainText, postedTime from comment order by postedTime";
         $result = $mysqli->query($sql);
         if($result){
             while($row = $result->fetch_assoc()){
@@ -34,19 +51,19 @@
             }
             $result->close();
         }
-        else{
-            echo "データの登録に失敗しました";
-            echo "SQL文: $sql";
-            echo "エラー番号: $mysqli->errno";
-            echo "エラーメッセージ: $mysqli->error";
-            exit();
-        }
-
-        $mysqli->close();
 
         ?>
 
+        <form action="index.php" method="post">
+            質問・コメントを入力<br>
+            <textarea name="mainText" rows="2" cols="40"></textarea><br>
+            <input type="submit" value="送信">
+        </form>
 
-        <p><a href="new.html">新規投稿</a><p>
+
+        <?php
+            $mysqli->close();
+        ?>
+
     </body>
 </html>
