@@ -5,7 +5,7 @@
         <title>質問・コメント機能</title>
     </head>
     <body>
-        <h1>質問・コメント機能</h1>
+        <h1><a href="index.php">質問・コメント機能</a></h1>
 
         <?php
 
@@ -60,6 +60,11 @@
             <input type="submit" value="送信">
         </form>
 
+        <p>
+            <a href="index.php">一覧へ</a><br>
+            <a href="../users/sign_in.html">サインインへ</a><br>
+            <a href="../users/sign_up.html">サインアップへ</a><br>
+        </p>
 
         <?php
             $mysqli->close();

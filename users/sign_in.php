@@ -55,5 +55,9 @@
         }
 
         ?>
+
+        <p>
+            <a href="../post_comments/index.php">一覧へ</a><br>
+        </p>
     </body>
 </html>
