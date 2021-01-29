@@ -5,6 +5,7 @@
         <title>質問・コメント機能</title>
     </head>
     <body>
+        <script src="script.js"></script>
         <h1><a href="index.php">質問・コメント機能</a></h1>
         <p>
             <a href="../users/sign_in.html">サインイン</a><br>
@@ -63,17 +64,31 @@
                 }
             }
 
+            // $favorite = $_POST["favorite"];
+            
+            $comment_count = 0;
 
             $sql = "select comment.mainText, comment.postedTime, users.userName from comment join users on comment.uid = users.uid order by postedTime";
             $result = $mysqli->query($sql);
             if($result){
                 while($row = $result->fetch_assoc()){
-                    echo $row["userName"] . " - " . $row["mainText"] . " - " . $row["postedTime"] . "<hr>";
+                    echo $row["userName"] . " - " . $row["mainText"] . " - " . $row["postedTime"];
+                    echo "<div class='iine'>
+                            <form action='index.php' method='post'>
+                                <input type='submit' value='いいね' id='button1'>
+                            </form>
+                        </div>";
+                    echo "<hr>";
                 }
                 $result->close();
             }
+
+            
             $mysqli->close();
         ?>
+
+        
+
 
     </body>
 </html>
