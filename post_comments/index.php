@@ -6,53 +6,11 @@
     </head>
     <body>
         <h1><a href="index.php">質問・コメント機能</a></h1>
-
-        <?php
-
-        //接続用パラメータの設定
-        $host = 'localhost'; //データベースが動作するホスト
-        $user = 'www'; //DBユーザ名（各自が設定）
-        $pass = 're12wcd'; //DBパスワード（各自が設定）
-        $dbname = 'comment_db';//データベース名（各自が設定）
-
-        // mysqliクラスのオブジェクトを作成
-        $mysqli = new mysqli($host, $user, $pass, $dbname);
-        if($mysqli->connect_error){
-            echo $mysqli->connect_error;
-            exit();
-        }
-        else{
-            $mysqli->set_charset("utf8");
-        }
-
-        if(!empty($_POST["mainText"])){
-            $mainText = $_POST["mainText"];
-            $sql = "insert into comment (mainText) values ('$mainText')";
-            $result = $mysqli -> query($sql);
-            if($result){
-                echo "データの登録に成功しました";
-                echo "<br>";
-            }
-            else{
-                echo "データの登録に失敗しました";
-                echo "SQL文: $sql";
-                echo "エラー番号: $mysqli->errno";
-                echo "エラーメッセージ: $mysqli->error";
-                exit();
-            }
-        }
-
-
-        $sql = "select mainText, postedTime from comment order by postedTime";
-        $result = $mysqli->query($sql);
-        if($result){
-            while($row = $result->fetch_assoc()){
-                echo $row["postedTime"] . " - " . $row["mainText"] . "<br>";
-            }
-            $result->close();
-        }
-
-        ?>
+        <p>
+            <a href="../users/sign_in.html">サインイン</a><br>
+            <a href="../users/sign_out.php">サインアウト</a><br>
+            <a href="../users/sign_up.html">サインアップ</a><br>
+        </p>
 
         <form action="index.php" method="post">
             質問・コメントを入力<br>
@@ -60,13 +18,59 @@
             <input type="submit" value="送信">
         </form>
 
-        <p>
-            <a href="index.php">一覧へ</a><br>
-            <a href="../users/sign_in.html">サインインへ</a><br>
-            <a href="../users/sign_up.html">サインアップへ</a><br>
-        </p>
+
 
         <?php
+            session_start();
+            if(isset($_SESSION['uid'])){
+                $uid = $_SESSION['uid'];
+                echo "サインイン済みです。ユーザIDは${uid}です。<hr>";
+            }
+            else{
+                echo "サインインしていません。<hr>";
+                exit();
+            }
+
+            //接続用パラメータの設定
+            $host = 'localhost'; //データベースが動作するホスト
+            $user = 'www'; //DBユーザ名（各自が設定）
+            $pass = 're12wcd'; //DBパスワード（各自が設定）
+            $dbname = 'comment_db';//データベース名（各自が設定）
+
+            // mysqliクラスのオブジェクトを作成
+            $mysqli = new mysqli($host, $user, $pass, $dbname);
+            if($mysqli->connect_error){
+                echo $mysqli->connect_error;
+                exit();
+            }
+            else{
+                $mysqli->set_charset("utf8");
+            }
+
+            if(!empty($_POST["mainText"])){
+                $mainText = $_POST["mainText"];
+                $sql = "insert into comment (mainText, uid) values ('$mainText', '$uid')";
+                $result = $mysqli -> query($sql);
+                if($result){
+                }
+                else{
+                    echo "データの登録に失敗しました。";
+                    echo "SQL文: $sql";
+                    echo "エラー番号: $mysqli->errno";
+                    echo "エラーメッセージ: $mysqli->error";
+                    exit();
+                }
+            }
+
+
+            $sql = "select comment.mainText, comment.postedTime, users.userName from comment join users on comment.uid = users.uid order by postedTime";
+            $result = $mysqli->query($sql);
+            if($result){
+                while($row = $result->fetch_assoc()){
+                    echo $row["userName"] . " - " . $row["mainText"] . " - " . $row["postedTime"] . "<hr>";
+                }
+                $result->close();
+            }
             $mysqli->close();
         ?>
 
