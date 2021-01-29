@@ -12,14 +12,6 @@
             <a href="../users/sign_up.html">サインアップ</a><br>
         </p>
 
-        <form action="index.php" method="post">
-            質問・コメントを入力<br>
-            <textarea name="mainText" rows="2" cols="40"></textarea><br>
-            <input type="submit" value="送信">
-        </form>
-
-
-
         <?php
             session_start();
             if(isset($_SESSION['uid'])){
@@ -30,6 +22,15 @@
                 echo "サインインしていません。<hr>";
                 exit();
             }
+        ?>
+
+        <form action="index.php" method="post">
+            質問・コメントを入力<br>
+            <textarea name="mainText" rows="2" cols="40"></textarea><br>
+            <input type="submit" value="送信">
+        </form>
+
+        <?php
 
             //接続用パラメータの設定
             $host = 'localhost'; //データベースが動作するホスト
