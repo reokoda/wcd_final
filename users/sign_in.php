@@ -29,7 +29,7 @@
             $userName = $_POST["userName"];
             $password = $_POST["password"];
 
-            $sql = "select password from users where userName = '$userName'";
+            $sql = "select password, uid from users where userName = '$userName'";
             $result = $mysqli->query($sql);
             if($result->num_rows == 0){
                 echo "ユーザ名「${userName}」は登録されていません<br>";
@@ -38,9 +38,12 @@
 
             $row = $result->fetch_assoc();
             $db_enc_passwd = $row["password"];
+            $uid = $row["uid"]; 
 
             if(password_verify($password, $db_enc_passwd)){
                 echo "ユーザ「${userName}」が正しく認証されました<br>";
+                session_start();
+                $_SESSION['uid'] = $uid;
             }
             else{
                 echo "ユーザ「${userName}」を認証できませんでした。パスワードが一致しません<br>";
