@@ -33,12 +33,12 @@
             $sql = "select * from users where userName = '$userName'";
             $result = $mysqli->query($sql);
             if($result->num_rows != 0){
-                echo "ユーザ名「${userName}」は既に登録されているため使用できません<br>";
+                echo "ユーザ名「${userName}」は既に登録されているため使用できません。<br>";
                 exit();
             }
 
             if($password1 != $password2){
-                echo "パスワードが一致しません<br>";
+                echo "パスワードが一致しません。<br>";
                 exit();
             }
 
@@ -48,10 +48,10 @@
             $sql = "insert into users (userName, password) values ('$userName', '$enc_password')";
             $result = $mysqli->query($sql);
             if($result){
-                echo "ユーザ「${userName}」の登録に成功しました<br>";
+                echo "ユーザ「${userName}」の登録に成功しました。<br>";
             }
             else{
-                echo "データの登録に失敗しました<br>";
+                echo "データの登録に失敗しました。<br>";
                 echo "SQL文: $sql<br>";
                 echo "エラー番号: $mysqli->errno<br>";
                 echo "エラ〜メッセージ: $mysqli->error<br>";
@@ -61,7 +61,7 @@
             $mysqli->close();
         }
         else{
-            echo "入力されていない項目があります<br>";
+            echo "入力されていない項目があります。<br>";
         }
 
         ?>
