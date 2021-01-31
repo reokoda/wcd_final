@@ -3,33 +3,44 @@
     <head>
         <meta charset="UTF-8">
         <title>質問・コメント機能</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <script src="script.js"></script>
-        <h1><a href="index.php">質問・コメント機能</a></h1>
-        <p>
-            <a href="../users/sign_in.html">サインイン</a><br>
-            <a href="../users/sign_out.php">サインアウト</a><br>
-            <a href="../users/sign_up.html">サインアップ</a><br>
-        </p>
+        <!-- <script src="script.js"></script> -->
+        <header>
+            <h1 class="heading">
+                <a href="index.php">質問・コメント機能</a>
+            </h1>
+        </header>
+
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-list-item"><a href="../users/sign_in.html">サインイン</a></li>
+                <li class="nav-list-item"><a href="../users/sign_out.php">サインアウト</a></li>
+                <li class="nav-list-item"><a href="../users/sign_up.html">サインアップ</a></li>
+            </ul>
+        </nav>
+        
 
         <?php
             session_start();
             if(isset($_SESSION['uid'])){
                 $uid = $_SESSION['uid'];
-                echo "サインイン済みです。ユーザIDは${uid}です。<hr>";
+                echo "<div class='check-session'>ようこそ、ユーザID'${uid}'さん。</div><hr>";
             }
             else{
                 echo "サインインしていません。<hr>";
                 exit();
             }
         ?>
-
-        <form action="index.php" method="post">
-            質問・コメントを入力<br>
-            <textarea name="mainText" rows="2" cols="40"></textarea><br>
-            <input type="submit" value="送信">
-        </form>
+        <main>
+            <form action="index.php" method="post">
+                質問・コメントを入力<br>
+                <textarea name="mainText" rows="4" cols="100"></textarea><br>
+                <div class="submit-button">
+                    <input type="submit" value="送信">
+                </div>
+            </form>
 
         <?php
 
@@ -65,29 +76,33 @@
             }
 
             // iineを受け取れたかの確認
-            $iine = $_POST["iine"];
             if(!empty($_POST["iine"])){
+                $iine = $_POST["iine"];
             }
             else{
                 $iine = 0;
             }
             echo $iine;
-            echo "<br>";
+            echo "<hr>";
 
             $sql = "select comment.cid, comment.mainText, comment.postedTime, users.userName, users.uid 
                     from comment join users on comment.uid = users.uid 
-                    order by postedTime";
+                    order by postedTime desc";
             $result = $mysqli->query($sql);
             if($result){
                 while($row = $result->fetch_assoc()){
-                    echo $row["userName"] . " - " . $row["mainText"] . " - " . $row["postedTime"];
-                    echo "<div class='iine'>
+                    echo "<div class='comment-box'>";
+                    echo "<div class='comment-user'>ユーザ名：" . $row["userName"] . "</div>";
+                    echo "<div class='comment-text'>" . $row["mainText"] . "</div>";
+                    echo "<div class='comment-time'>" . $row["postedTime"] . "</div>";
+                    echo "<div class='comment-iine'>
                             <form action='index.php' method='post'>
                                 <input type='hidden' name='iine' value=1>
                                 <input type='submit' value='いいね'>
                             </form>
                         </div>";
                     echo "<hr>";
+                    echo "</div>";
                     $sql2 = "insert into favorites (cid) values (" . $row["cid"] . ")";
                     $result2 = $mysqli->query($sql2);
                 }
@@ -98,7 +113,7 @@
             
             $mysqli->close();
         ?>
-
+        </main>
         
 
 

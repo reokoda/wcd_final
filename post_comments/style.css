@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #6c6b6b;
+}
+
+a{
+    text-decoration: none;
+}
+
+header{
+    width: 100%;
+    padding: 15px 0;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+header .heading{
+    font-size: 32px;
+}
+
+.nav-list{
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.nav-list-item{
+    list-style: none;
+    display: inline-block; 
+    margin: 0 20px;
+}
+
+.check-session{
+    text-align: right;
+}
+
+.submit-button{
+    text-align: center;
+}
+
+main{
+    width: 100%;
+    /* display: flex; */
+    /* justify-content: center; */
+    margin: 0 auto;
+    padding: 70px 10% 0;
+} 
+
+.comment-box{
+    width: 100%;
+    margin: 15px 0px 0px;
+    padding: 0;
+}
+
+.comment-user{
+    margin: 0 auto;
+    padding: 0;
+}
+
+.comment-text{
+    font-size: 18px;
+    margin: 0 auto;
+    padding: 10px 20px 0px;
+}
+
+.comment-time{
+    font-size: 10px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+.comment-iine{
+    margin: 0 0 5px;
+    text-align: center;
+}
+
+
+/* 
+@media screen and (max-width:768px){
+    header{
+        width: 100%;
+    }
+
+    .nav-list-item{
+        display: block;
+        padding: 5px;
+    }
+
+    main{
+        width: 100%;
+        display: block;
+    }
+}
+
+
+
