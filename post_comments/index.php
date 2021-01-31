@@ -75,14 +75,6 @@
                 }
             }
 
-            // iineを受け取れたかの確認
-            if(!empty($_POST["iine"])){
-                $iine = $_POST["iine"];
-            }
-            else{
-                $iine = 0;
-            }
-            echo $iine;
             echo "<hr>";
 
             $sql = "select comment.cid, comment.mainText, comment.postedTime, users.userName, users.uid 
@@ -90,23 +82,34 @@
                     order by postedTime desc";
             $result = $mysqli->query($sql);
             if($result){
+                $i = 0;
                 while($row = $result->fetch_assoc()){
-                    echo "<div class='comment-box'>";
-                    echo "<div class='comment-user'>ユーザ名：" . $row["userName"] . "</div>";
-                    echo "<div class='comment-text'>" . $row["mainText"] . "</div>";
-                    echo "<div class='comment-time'>" . $row["postedTime"] . "</div>";
-                    echo "<div class='comment-iine'>
-                            <form action='index.php' method='post'>
-                                <input type='hidden' name='iine' value=1>
-                                <input type='submit' value='いいね'>
+                    // $sql2 = "select count(cid) from favorites where cid = " . $row['cid'];
+                    // $result2 = $mysqli->query($sql2);
+                    echo '<div class="comment-box">';
+                    echo '<div class="comment-user">ユーザ名：' . $row["userName"] . '</div>';
+                    echo '<div class="comment-text">' . $row["mainText"] . '</div>';
+                    echo '<div class="comment-time">' . $row["postedTime"] . '</div>';
+                    echo '<div class="comment-iine">
+                            <form action="index.php" method="post">
+                                <input type="hidden" name="hidden['.$i.']" value=' . $row["cid"] . '>
+                                <input type="submit" name="submit['.$i.']" value="いいね">
                             </form>
-                        </div>";
-                    echo "<hr>";
-                    echo "</div>";
-                    $sql2 = "insert into favorites (cid) values (" . $row["cid"] . ")";
-                    $result2 = $mysqli->query($sql2);
+                        </div>';
+                    echo '<hr>';
+                    echo '</div>';
+
+                    $i += 1;
+                    // $result2->close();
                 }
-                $result2->close();
+                // iineを受け取れたかの確認
+                if(isset($_POST['submit'])){
+                    $iine = key($_POST['submit']);
+                    $cid_iine = $_POST['hidden'][$iine];
+                    $sql3 = "insert into favorites (cid, uid) values ('$cid_iine', '$uid')";
+                    $result3 = $mysqli->query($sql3);
+                }
+                $result3->close();
                 $result->close();
             }
 
