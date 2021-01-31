@@ -52,7 +52,7 @@
             if(!empty($_POST["mainText"])){
                 $mainText = $_POST["mainText"];
                 $sql = "insert into comment (mainText, uid) values ('$mainText', '$uid')";
-                $result = $mysqli -> query($sql);
+                $result = $mysqli->query($sql);
                 if($result){
                 }
                 else{
@@ -64,22 +64,34 @@
                 }
             }
 
-            // $favorite = $_POST["favorite"];
-            
-            $comment_count = 0;
+            // iineを受け取れたかの確認
+            $iine = $_POST["iine"];
+            if(!empty($_POST["iine"])){
+            }
+            else{
+                $iine = 0;
+            }
+            echo $iine;
+            echo "<br>";
 
-            $sql = "select comment.mainText, comment.postedTime, users.userName from comment join users on comment.uid = users.uid order by postedTime";
+            $sql = "select comment.cid, comment.mainText, comment.postedTime, users.userName, users.uid 
+                    from comment join users on comment.uid = users.uid 
+                    order by postedTime";
             $result = $mysqli->query($sql);
             if($result){
                 while($row = $result->fetch_assoc()){
                     echo $row["userName"] . " - " . $row["mainText"] . " - " . $row["postedTime"];
                     echo "<div class='iine'>
                             <form action='index.php' method='post'>
-                                <input type='submit' value='いいね' id='button1'>
+                                <input type='hidden' name='iine' value=1>
+                                <input type='submit' value='いいね'>
                             </form>
                         </div>";
                     echo "<hr>";
+                    $sql2 = "insert into favorites (cid) values (" . $row["cid"] . ")";
+                    $result2 = $mysqli->query($sql2);
                 }
+                $result2->close();
                 $result->close();
             }
 
