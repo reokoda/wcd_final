@@ -55,13 +55,15 @@
             }
         ?>
         <main>
-            <form action="index.php" method="post">
-                質問・コメントを入力<br>
-                <textarea name="mainText" rows="4" cols="100"></textarea><br>
-                <div class="submit-button">
-                    <input type="submit" value="送信">
-                </div>
-            </form>
+            <div class="comment-form">
+                <form action="index.php" method="post">
+                    質問・コメントを入力<br>
+                    <textarea name="mainText" rows="4" cols="100"></textarea><br>
+                    <div class="submit-button">
+                        <input type="submit" value="送信">
+                    </div>
+                </form>
+            </div>
 
         <?php
 

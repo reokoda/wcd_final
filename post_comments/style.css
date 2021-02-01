@@ -37,6 +37,13 @@ header .heading{
     text-align: right;
 }
 
+.comment-form{
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .submit-button{
     text-align: center;
 }
