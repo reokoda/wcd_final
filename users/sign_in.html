@@ -3,17 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title>ユーザ認証 -質問・コメント機能-</title>
+        <link rel="stylesheet" href="../post_comments/style.css">
     </head>
     <body>
-        <h1><a href="sign_in.html">ユーザ認証画面</a></h1>
-        <form action="sign_in.php" method="post">
-            ユーザ名：<input type="text" name="userName"><br>
-            パスワード：<input type="password" name="password"><br>
-            <input type="submit" value="認証">
-        </form>
-        <p>
-            <a href="../post_comments/index.php">一覧へ</a><br>
-            <a href="../users/sign_up.html">サインアップへ</a><br>
-        </p>
+        <header>
+            <h1 class="heading">
+                <a href="../post_comments/index.php">質問・コメント機能</a>
+            </h1>
+            <p>
+                ユーザ認証画面
+            </p>
+        </header>
+
+        <main>
+            <div class="sign-form">
+                <form action="sign_in.php" method="post">
+                    ユーザ名：<input type="text" name="userName"><br>
+                    パスワード：<input type="password" name="password"><br>
+                    <input type="submit" value="認証">
+                </form>
+                <p>
+                    <a href="../post_comments/index.php">一覧へ</a><br>
+                    <a href="../users/sign_up.html">サインアップへ</a><br>
+                </p>
+            </div>
+        </main>
     </body>
 </html>
