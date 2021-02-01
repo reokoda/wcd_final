@@ -23,10 +23,31 @@
         
 
         <?php
+            //接続用パラメータの設定
+            $host = 'localhost'; //データベースが動作するホスト
+            $user = 'www'; //DBユーザ名（各自が設定）
+            $pass = 're12wcd'; //DBパスワード（各自が設定）
+            $dbname = 'comment_db';//データベース名（各自が設定）
+
+            // mysqliクラスのオブジェクトを作成
+            $mysqli = new mysqli($host, $user, $pass, $dbname);
+            if($mysqli->connect_error){
+                echo $mysqli->connect_error;
+                exit();
+            }
+            else{
+                $mysqli->set_charset("utf8");
+            }
+
             session_start();
             if(isset($_SESSION['uid'])){
                 $uid = $_SESSION['uid'];
-                echo "<div class='check-session'>ようこそ、ユーザID'${uid}'さん。</div><hr>";
+                $sql = "select userName from users where uid = '${uid}'";
+                $result = $mysqli->query($sql);
+                $row = $result->fetch_assoc();
+                if($result){
+                    echo '<div class="check-session">ようこそ、' . $row["userName"] . 'さん。</div><hr>';
+                }
             }
             else{
                 echo "サインインしていません。<hr>";
@@ -44,21 +65,7 @@
 
         <?php
 
-            //接続用パラメータの設定
-            $host = 'localhost'; //データベースが動作するホスト
-            $user = 'www'; //DBユーザ名（各自が設定）
-            $pass = 're12wcd'; //DBパスワード（各自が設定）
-            $dbname = 'comment_db';//データベース名（各自が設定）
 
-            // mysqliクラスのオブジェクトを作成
-            $mysqli = new mysqli($host, $user, $pass, $dbname);
-            if($mysqli->connect_error){
-                echo $mysqli->connect_error;
-                exit();
-            }
-            else{
-                $mysqli->set_charset("utf8");
-            }
 
             if(!empty($_POST["mainText"])){
                 $mainText = $_POST["mainText"];

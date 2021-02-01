@@ -3,10 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>ユーザ認証 -質問・コメント機能-</title>
+        <link rel="stylesheet" href="../post_comments/style.css">
     </head>
     <body>
-        <h1>ユーザ認証画面</h1>
-
+        <header>
+            <h1 class="heading">
+                <a href="../post_comments/index.php">質問・コメント機能</a>
+            </h1>
+            <p>
+                ユーザ認証画面
+            </p>
+        </header>
+        <main>
         <?php
         //接続用パラメータの設定
         $host = 'localhost'; //データベースが動作するホスト
@@ -62,5 +70,6 @@
         <p>
             <a href="../post_comments/index.php">一覧へ</a><br>
         </p>
+        </main>
     </body>
 </html>

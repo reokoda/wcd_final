@@ -43,8 +43,6 @@ header .heading{
 
 main{
     width: 100%;
-    /* display: flex; */
-    /* justify-content: center; */
     margin: 0 auto;
     padding: 70px 10% 50px;
 } 
@@ -82,6 +80,9 @@ main{
     text-align: center;
 }
 
+.sign_form{
+    text-align: center;
+}
 
 /* 
 @media screen and (max-width:768px){
